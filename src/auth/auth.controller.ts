@@ -1,4 +1,5 @@
-import { Controller, Post, Res, HttpStatus, Body, Query } from '@nestjs/common';
+import { Controller, Post, Res, HttpStatus, Body, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -18,6 +19,7 @@ export class AuthController {
     }
 
     @Post('/logout')
+    @UseGuards(AuthGuard('jwt'))
     async logout(@Res() res, @Query() id) {
                
         this.authService.logout(id.id).then(response => res.status(HttpStatus.OK).json(
