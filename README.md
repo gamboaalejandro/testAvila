@@ -45,8 +45,11 @@ Este endpoint se utiliza para registrar un nuevo usuario en la base de datos.
 - Método: `POST`
 - URL: `/auth/signup`
 - Parámetros de entrada:
+  - `username`:nombre de usuario (string)
   - `email`: correo electrónico del usuario (string)
   - `password`: contraseña del usuario (string)
+  -  `firstName`: primer nombre del usuario (string)
+  -  `lastName`: apellido del usuario (string)
 - Respuesta:
   - `message`: mensaje de éxito o error (string)
   - `user`: información del usuario registrado (object)
@@ -58,7 +61,7 @@ Este endpoint se utiliza para iniciar sesión con un usuario existente en la bas
 - Método: `POST`
 - URL: `/auth/signin`
 - Parámetros de entrada:
-  - `email`: correo electrónico del usuario (string)
+  - `username`: correo electrónico del usuario (string)
   - `password`: contraseña del usuario (string)
 - Respuesta:
   - `token`: token JWT que se utilizará para autenticar al usuario en los endpoints protegidos (string)
@@ -70,6 +73,7 @@ Este endpoint se utiliza para cerrar sesión de un usuario.
 - Método: `POST`
 - URL: `/auth/signout`
 - Parámetros de entrada:
+  - `id`: id del usuario a desloguear (string)
   - `Authorization`: token JWT del usuario (string)
 - Respuesta:
   - `message`: mensaje de éxito o error (string)
@@ -92,9 +96,10 @@ Este endpoint se utiliza para obtener una lista de todos los usuarios registrado
 - Método: `GET`
 - URL: `/users`
 - Parámetros de entrada:
-  - `page`: número de página a obtener (number)
+  - `offset`: offset a usar (number)
   - `limit`: número máximo de usuarios a obtener por página (number)
 - Respuesta:
+  - `count`: cantidad de usuarios totales(number)
   - `users`: lista de usuarios (array)
   - `totalPages`: número total de páginas (number)
   - `currentPage`: número de la página actual (number)
