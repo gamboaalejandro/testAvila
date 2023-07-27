@@ -51,4 +51,28 @@ export class AuthService {
             user: result
         }
     }
+
+    //servicio para logout de la aplicacion
+    async logout(id :string) : Promise<responsed> {
+        console.log()
+        this.userModel.findOne({_id:id}).then(user => {
+            if (!user) {
+                throw {
+                    code :404,
+                    message: 'Registro no encontrado',
+                    data:{}
+                }
+            }
+        })
+
+        await this.userModel.updateOne({_id:id},{$set:{sessions:{
+            endTime: Date.now()
+        }}}).exec()
+        return {
+            code:200,
+            message:'logout exitoso',
+            data:[]
+
+    }
+}
 }

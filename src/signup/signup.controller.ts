@@ -8,7 +8,6 @@ export class SignupController {
 
     //obtener todos los usuarios
     @Get('/users')
-    @UseGuards(AuthGuard('jwt'))
     getUsers(@Res() res, @Query('offset') offset: number, @Query('limit') limit: number) {
         console.log(offset,limit);
         this.signupService.getUsers(offset,limit).then(users => res.status(HttpStatus.OK).json({
