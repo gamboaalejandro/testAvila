@@ -27,7 +27,7 @@ export class SignupService {
 
     async createUser(user: CreateUserDto): Promise<CreateUserDto> {
         const {password }= user // plain password
-        user.password = this.hashService.hash(password);
+        user.password = await this.hashService.hash(password);
         const newUser = new this.userModel(user);
         return await newUser.save();
     }

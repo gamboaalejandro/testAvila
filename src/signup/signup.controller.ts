@@ -1,5 +1,6 @@
-import { Controller, Get, Post ,Res, HttpStatus, Query, Body } from '@nestjs/common';
+import { Controller, Get, Post ,Res, HttpStatus, Query, Body,UseGuards } from '@nestjs/common';
 import { SignupService } from './signup.service';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dto/userdto';
 @Controller('signup')
 export class SignupController {
@@ -7,6 +8,7 @@ export class SignupController {
 
     //obtener todos los usuarios
     @Get('/users')
+    @UseGuards(AuthGuard('jwt'))
     getUsers(@Res() res, @Query('offset') offset: number, @Query('limit') limit: number) {
         console.log(offset,limit);
         this.signupService.getUsers(offset,limit).then(users => res.status(HttpStatus.OK).json({
